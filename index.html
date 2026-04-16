@@ -127,14 +127,18 @@
     @keyframes pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
 
     /* Hero */
-    .hero{padding:72px 0 40px;text-align:center}
+    .hero{
+      padding:56px 0 48px;
+      text-align:center;
+      position:relative;
+    }
     h1{
       font-family:'Space Grotesk',sans-serif;
-      font-size:clamp(44px,8.5vw,72px);
+      font-size:clamp(46px,9vw,76px);
       font-weight:600;
-      letter-spacing:-0.04em;
-      line-height:0.96;
-      margin-bottom:26px;
+      letter-spacing:-0.045em;
+      line-height:0.94;
+      margin-bottom:22px;
       color:var(--text);
     }
     h1 .hl{
@@ -149,94 +153,85 @@
       font-size:17px;
       line-height:1.55;
       color:var(--muted);
-      max-width:480px;
-      margin:0 auto 64px;
+      max-width:440px;
+      margin:0 auto 52px;
       font-weight:300;
     }
-    .hero-cta{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:16px 36px;
-      background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);
-      border:1px solid rgba(26,26,26,0.1);
-      border-radius:100px;
-      color:#fff;
-      font-size:15px;font-weight:600;font-family:'Space Grotesk',sans-serif;
-      text-decoration:none;
-      letter-spacing:-0.02em;
-      transition:transform .35s cubic-bezier(.2,.8,.2,1),background .3s ease,box-shadow .3s ease;
-      will-change:transform;
-      margin-bottom:56px;
+    .sub em{
+      font-style:normal;
+      color:var(--text);
+      font-weight:400;
     }
-    .hero-cta svg{width:18px;height:18px;transition:transform .3s ease}
-    .hero-cta:hover{
-      transform:translateY(-2px);
-      background:linear-gradient(135deg,#8B6914 0%,#A0784C 100%);
-      box-shadow:0 8px 24px rgba(139,105,20,0.18);
-    }
-    .hero-cta:hover svg{transform:translateY(3px)}
-    .hero-cta:active{transform:translateY(0)}
-    .hero-cta:focus-visible{outline:2px solid var(--wood-dark);outline-offset:3px}
 
-    /* Wireframe cube */
-    .cube-stage{
-      width:280px;height:280px;
-      margin:0 auto 140px;
-      perspective:1000px;
+    /* Hero photo — product as hero */
+    .hero-photo{
       position:relative;
-    }
-    .cube{
-      width:200px;height:200px;
-      position:absolute;top:50%;left:50%;
-      transform-style:preserve-3d;
-      transform:translate(-50%,-50%) rotateX(-22deg) rotateY(0deg);
-      animation:cube-rot 24s linear infinite;
+      max-width:600px;
+      margin:0 auto 44px;
+      border-radius:28px;
+      overflow:hidden;
+      background:linear-gradient(160deg, var(--cream) 0%, var(--cream-2) 100%);
+      border:1px solid var(--border);
+      box-shadow:
+        0 48px 88px -24px rgba(139,105,20,0.26),
+        0 24px 48px -16px rgba(139,105,20,0.16),
+        0 6px 14px -4px rgba(26,26,26,0.08);
+      animation:photo-float 7s ease-in-out infinite;
       will-change:transform;
     }
-    @keyframes cube-rot{
-      0%{transform:translate(-50%,-50%) rotateX(-22deg) rotateY(0deg)}
-      100%{transform:translate(-50%,-50%) rotateX(-22deg) rotateY(360deg)}
+    .hero-photo::after{
+      content:'';
+      position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 60% 40% at 30% 15%, rgba(255,255,255,0.22), transparent 60%),
+        linear-gradient(180deg, transparent 60%, rgba(26,26,26,0.06) 100%);
+      pointer-events:none;
     }
-    .edge{
-      position:absolute;
-      top:50%;left:50%;
-      width:200px;height:2px;
-      margin-left:-100px;margin-top:-1px;
-      background:#C4A35A;
-      border-radius:2px;
-      transform-style:preserve-3d;
+    .hero-photo img{
+      width:100%;
+      height:auto;
+      aspect-ratio:4/3;
+      object-fit:cover;
+      display:block;
     }
-    /* X-axis edges (horizontal) */
-    .e1{transform:translate3d(0,-100px,-100px)}
-    .e2{transform:translate3d(0,-100px,100px)}
-    .e3{transform:translate3d(0,100px,-100px)}
-    .e4{transform:translate3d(0,100px,100px)}
-    /* Y-axis edges (vertical) */
-    .e5{transform:translate3d(-100px,0,-100px) rotateZ(90deg)}
-    .e6{transform:translate3d(-100px,0,100px) rotateZ(90deg)}
-    .e7{transform:translate3d(100px,0,-100px) rotateZ(90deg)}
-    .e8{transform:translate3d(100px,0,100px) rotateZ(90deg)}
-    /* Z-axis edges (depth) */
-    .e9{transform:translate3d(-100px,-100px,0) rotateY(90deg)}
-    .e10{transform:translate3d(-100px,100px,0) rotateY(90deg)}
-    .e11{transform:translate3d(100px,-100px,0) rotateY(90deg)}
-    .e12{transform:translate3d(100px,100px,0) rotateY(90deg)}
+    @keyframes photo-float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-6px)}
+    }
 
-    .vertex{
-      position:absolute;
-      top:50%;left:50%;
-      width:8px;height:8px;
-      margin-left:-4px;margin-top:-4px;
-      border-radius:50%;
-      background:#A0784C;
+    /* Scroll hint — subtle, not a CTA */
+    .scroll-hint{
+      display:inline-flex;flex-direction:column;align-items:center;gap:10px;
+      color:var(--dim);
+      text-decoration:none;
+      font-size:10.5px;font-weight:500;
+      font-family:'Space Grotesk',sans-serif;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      transition:color .3s ease;
+      padding:8px 14px;
     }
-    .v1{transform:translate3d(-100px,-100px,-100px)}
-    .v2{transform:translate3d(100px,-100px,-100px)}
-    .v3{transform:translate3d(-100px,100px,-100px)}
-    .v4{transform:translate3d(100px,100px,-100px)}
-    .v5{transform:translate3d(-100px,-100px,100px)}
-    .v6{transform:translate3d(100px,-100px,100px)}
-    .v7{transform:translate3d(-100px,100px,100px)}
-    .v8{transform:translate3d(100px,100px,100px)}
+    .scroll-hint:hover{color:var(--wood-dark)}
+    .scroll-hint .chev-wrap{
+      width:28px;height:28px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--border);
+      border-radius:50%;
+      transition:border-color .3s ease, background .3s ease;
+    }
+    .scroll-hint:hover .chev-wrap{
+      border-color:var(--border-strong);
+      background:rgba(139,105,20,0.06);
+    }
+    .scroll-hint svg{
+      width:14px;height:14px;
+      animation:chev-bob 2.4s ease-in-out infinite;
+    }
+    @keyframes chev-bob{
+      0%,100%{transform:translateY(-1px);opacity:.55}
+      50%{transform:translateY(2px);opacity:1}
+    }
+    .scroll-hint:focus-visible{outline:2px solid var(--wood-dark);outline-offset:3px;border-radius:18px}
 
     /* Features */
     .feats{
@@ -864,9 +859,21 @@
 
     /* Mobile */
     @media(max-width:640px){
-      .hero{padding:56px 0 40px;min-height:calc(100vh - 70px);min-height:calc(100lvh - 70px)}
-      .hero-cta{padding:14px 28px;font-size:14px;margin-bottom:48px;width:100%;justify-content:center}
-.feats{grid-template-columns:1fr;gap:10px;margin-bottom:88px}
+      .hero{
+        padding:40px 0 24px;
+        min-height:calc(100vh - 70px);
+        min-height:calc(100lvh - 70px);
+        display:flex;flex-direction:column;align-items:center;
+      }
+      h1{font-size:clamp(42px,11vw,56px);margin-bottom:18px}
+      .sub{font-size:15px;margin-bottom:36px;max-width:340px}
+      .hero-photo{
+        max-width:100%;
+        margin-bottom:32px;
+        border-radius:22px;
+      }
+      .scroll-hint{margin-top:auto;padding-top:16px}
+      .feats{grid-template-columns:1fr;gap:10px;margin-bottom:88px}
       .feat{padding:22px}
       .testi-grid{grid-template-columns:1fr;gap:12px}
       .testimonials{margin-bottom:88px}
@@ -888,30 +895,6 @@
       .btn{padding:18px;width:100%;justify-content:center}
       .tabs{display:flex;width:100%}
       .tab{flex:1;justify-content:center}
-      .cube-stage{width:200px;height:200px;margin-bottom:100px}
-      .cube{width:160px;height:160px}
-      .edge{width:160px;height:2px;margin-left:-80px;margin-top:-1px}
-      .e1{transform:translate3d(0,-80px,-80px)}
-      .e2{transform:translate3d(0,-80px,80px)}
-      .e3{transform:translate3d(0,80px,-80px)}
-      .e4{transform:translate3d(0,80px,80px)}
-      .e5{transform:translate3d(-80px,0,-80px) rotateZ(90deg)}
-      .e6{transform:translate3d(-80px,0,80px) rotateZ(90deg)}
-      .e7{transform:translate3d(80px,0,-80px) rotateZ(90deg)}
-      .e8{transform:translate3d(80px,0,80px) rotateZ(90deg)}
-      .e9{transform:translate3d(-80px,-80px,0) rotateY(90deg)}
-      .e10{transform:translate3d(-80px,80px,0) rotateY(90deg)}
-      .e11{transform:translate3d(80px,-80px,0) rotateY(90deg)}
-      .e12{transform:translate3d(80px,80px,0) rotateY(90deg)}
-      .vertex{width:7px;height:7px;margin-left:-3.5px;margin-top:-3.5px}
-      .v1{transform:translate3d(-80px,-80px,-80px)}
-      .v2{transform:translate3d(80px,-80px,-80px)}
-      .v3{transform:translate3d(-80px,80px,-80px)}
-      .v4{transform:translate3d(80px,80px,-80px)}
-      .v5{transform:translate3d(-80px,-80px,80px)}
-      .v6{transform:translate3d(80px,-80px,80px)}
-      .v7{transform:translate3d(-80px,80px,80px)}
-      .v8{transform:translate3d(80px,80px,80px)}
       .form-section{margin-bottom:100px}
       .faq{margin-bottom:88px}
       .faq-i summary{padding:18px 18px;font-size:14.5px}
@@ -920,7 +903,7 @@
     }
     @media(max-width:380px){
       header{flex-direction:column;gap:14px;align-items:flex-start}
-      .hero{padding-top:56px}
+      .hero{padding-top:48px}
     }
     @media(prefers-reduced-motion:reduce){
       *,*::before,*::after{
@@ -929,7 +912,7 @@
         transition-duration:.01ms !important;
         scroll-behavior:auto !important;
       }
-      .cube{animation:none;transform:translate(-50%,-50%) rotateX(-22deg) rotateY(-30deg)}
+      .hero-photo{animation:none}
       .nav-pill .dot,.form-tag .live-dot,.count-dot{animation:none}
     }
   </style>
@@ -946,37 +929,18 @@
 
     <section class="hero">
       <h1 class="reveal d2">El cubo que<br><span class="hl">despierta mentes</span></h1>
-      <p class="sub reveal d3">Didáctico, impreso en 3D y pensado para aprender jugando. Sumate y sé de los primeros en tenerlo.</p>
+      <p class="sub reveal d3">Hecho a mano para jugar, imaginar y aprender <em>con las manos</em>. Sin pantallas, sin pilas, sin apuro.</p>
 
-      <a href="#precios" class="hero-cta">
-        <span>Reservá o comprá</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-      </a>
-
-      <div class="cube-stage reveal d4">
-        <div class="cube">
-          <div class="edge e1"></div>
-          <div class="edge e2"></div>
-          <div class="edge e3"></div>
-          <div class="edge e4"></div>
-          <div class="edge e5"></div>
-          <div class="edge e6"></div>
-          <div class="edge e7"></div>
-          <div class="edge e8"></div>
-          <div class="edge e9"></div>
-          <div class="edge e10"></div>
-          <div class="edge e11"></div>
-          <div class="edge e12"></div>
-          <div class="vertex v1"></div>
-          <div class="vertex v2"></div>
-          <div class="vertex v3"></div>
-          <div class="vertex v4"></div>
-          <div class="vertex v5"></div>
-          <div class="vertex v6"></div>
-          <div class="vertex v7"></div>
-          <div class="vertex v8"></div>
-        </div>
+      <div class="hero-photo reveal d4">
+        <img src="cubo-real.jpg" alt="Cubo didáctico de Rona Printing armado en una sala, hecho con uniones impresas en 3D" loading="eager" fetchpriority="high" width="1280" height="960">
       </div>
+
+      <a href="#testimonios" class="scroll-hint reveal d5" aria-label="Descubrí más abajo">
+        <span>Descubrí más</span>
+        <span class="chev-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </a>
     </section>
 
     <div class="feats">
