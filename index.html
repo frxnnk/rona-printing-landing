@@ -241,7 +241,7 @@
     /* Features */
     .feats{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:1fr 1fr;
       gap:14px;
       margin-bottom:120px;
     }
@@ -250,7 +250,7 @@
       background:var(--cream);
       border:1px solid var(--border);
       border-radius:18px;
-      padding:24px 20px;
+      padding:24px 22px;
       text-align:left;
       transition:transform .35s cubic-bezier(.2,.8,.2,1), background .35s cubic-bezier(.2,.8,.2,1), border-color .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1);
     }
@@ -259,6 +259,16 @@
       background:var(--cream-2);
       border-color:var(--border-strong);
       box-shadow:0 8px 24px rgba(139,105,20,0.08);
+    }
+    .feat-main{
+      grid-column:1 / -1;
+      background:linear-gradient(160deg, rgba(196,163,90,0.14), rgba(212,184,150,0.06));
+      border-color:rgba(139,105,20,0.32);
+      padding:28px 26px;
+    }
+    .feat-main:hover{
+      background:linear-gradient(160deg, rgba(196,163,90,0.2), rgba(212,184,150,0.1));
+      border-color:rgba(139,105,20,0.45);
     }
     .feat-icon{
       width:40px;height:40px;
@@ -270,6 +280,12 @@
       color:var(--wood-dark);
     }
     .feat-icon svg{width:20px;height:20px}
+    .feat-main .feat-icon{
+      width:44px;height:44px;
+      border-radius:13px;
+      margin-bottom:18px;
+    }
+    .feat-main .feat-icon svg{width:22px;height:22px}
     .feat h3{
       font-family:'Space Grotesk',sans-serif;
       font-size:15px;font-weight:600;
@@ -277,7 +293,15 @@
       letter-spacing:-0.02em;
       color:var(--text);
     }
-    .feat p{font-size:13px;color:var(--muted);line-height:1.55;font-weight:400}
+    .feat p{font-size:13px;color:var(--muted);line-height:1.6;font-weight:400}
+    .feat-main h3{
+      font-size:17px;
+      margin-bottom:8px;
+    }
+    .feat-main p{
+      font-size:13.5px;
+      max-width:440px;
+    }
 
     /* Testimonials */
     .testimonials{margin-bottom:120px}
@@ -956,37 +980,36 @@
     </section>
 
     <div class="feats">
-      <div class="feat reveal d4">
+      <div class="feat feat-main reveal d4">
         <div class="feat-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-            <line x1="12" y1="22.08" x2="12" y2="12"/>
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
           </svg>
         </div>
-        <h3>Impresión 3D</h3>
-        <p>Piezas precisas, con materiales que duran.</p>
+        <h3>Para jugar sin instrucciones</h3>
+        <p>Seis caras, cada una con algo distinto. Lo giran, lo tocan, le encuentran la vuelta. Sin instrucciones, sin pantalla, a su ritmo.</p>
       </div>
       <div class="feat reveal d5">
         <div class="feat-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18h6"/>
-            <path d="M10 22h4"/>
-            <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2v.3c0 .6.4 1 1 1h4c.6 0 1-.4 1-1V17c0-.7.4-1.4 1-2A7 7 0 0 0 12 2z"/>
+            <path d="M18 11V6a2 2 0 0 0-4 0v5"/>
+            <path d="M14 10V4a2 2 0 0 0-4 0v6"/>
+            <path d="M10 10.5V6a2 2 0 0 0-4 0v8"/>
+            <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-1.9-5.5-3.5L2 13.5a2.1 2.1 0 0 1 3.5-2.3L7 13"/>
           </svg>
         </div>
-        <h3>Didáctico</h3>
-        <p>Hecho para despertar curiosidad y ganas de explorar.</p>
+        <h3>Aprenden con las manos</h3>
+        <p>Los encajes y las texturas están pensados para dedos chicos. Trabajan motricidad fina y concentración, sin que deje de ser juego.</p>
       </div>
       <div class="feat reveal d6">
         <div class="feat-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
-            <path d="M13 13l6 6"/>
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </div>
-        <h3>Diseño propio</h3>
-        <p>Creado y fabricado a mano por Rona Printing.</p>
+        <h3>Hecho a mano, acá</h3>
+        <p>Lo diseñamos e imprimimos pieza por pieza, en nuestro taller. Cada cubo sale revisado uno por uno, nunca de una línea de producción.</p>
       </div>
     </div>
 
