@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rona Printing — El cubo que despierta mentes</title>
+  <meta name="description" content="Cubo didáctico impreso en 3D por Rona Printing. Anotate a la lista de espera y reservá el tuyo.">
+  <meta property="og:title" content="Rona Printing — Cubo Didáctico">
+  <meta property="og:description" content="Cubo didáctico impreso en 3D. Educación tangible, diseño propio.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#faf8f5">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B6914' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/%3E%3Cpolyline points='3.27 6.96 12 12.01 20.73 6.96'/%3E%3Cline x1='12' y1='22.08' x2='12' y2='12'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+    :root{
+      --bg:#faf8f5;
+      --bg-2:#f2ece1;
+      --text:#1a1a1a;
+      --muted:#6b6358;
+      --dim:#a89e8e;
+      --wood-dark:#8B6914;
+      --wood:#A0784C;
+      --wood-light:#C4A35A;
+      --wood-pale:#D4B896;
+      --cream:#f5efe6;
+      --cream-2:#ebe2d2;
+      --ring:rgba(139,105,20,0.18);
+      --ring-strong:rgba(139,105,20,0.4);
+      --border:rgba(139,105,20,0.14);
+      --border-strong:rgba(139,105,20,0.28);
+    }
+
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{
+      font-family:'Sora',-apple-system,BlinkMacSystemFont,sans-serif;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(196,163,90,0.16), transparent 60%),
+        radial-gradient(ellipse 70% 50% at 100% 100%, rgba(212,184,150,0.14), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      font-weight:400;
+      letter-spacing:-0.01em;
+    }
+
+    .wrap{position:relative;z-index:2;max-width:680px;margin:0 auto;padding:0 24px}
+
+    /* Scroll progress */
+    .scroll-progress{
+      position:fixed;
+      top:0;left:0;
+      width:100%;height:2px;
+      background:linear-gradient(90deg, var(--wood-dark), var(--wood-light));
+      transform-origin:0 50%;
+      transform:scaleX(0);
+      opacity:0;
+      z-index:9999;
+      transition:opacity .35s ease;
+      pointer-events:none;
+      will-change:transform,opacity;
+    }
+
+    /* Reveal */
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      filter:blur(4px);
+      transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1), filter .8s cubic-bezier(.2,.8,.2,1);
+    }
+    .reveal.revealed{opacity:1;transform:translateY(0);filter:blur(0)}
+    .d1{transition-delay:0s}
+    .d2{transition-delay:.08s}
+    .d3{transition-delay:.16s}
+    .d4{transition-delay:.24s}
+    .d5{transition-delay:.32s}
+    .d6{transition-delay:.40s}
+    .d7{transition-delay:.48s}
+
+    /* Focus visible */
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible,
+    [role="tab"]:focus-visible{
+      outline:2px solid var(--wood-dark);
+      outline-offset:2px;
+      border-radius:inherit;
+    }
+
+    /* Header */
+    header{
+      padding:28px 0 0;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;
+    }
+    .logo{display:flex;align-items:center;text-decoration:none;color:var(--text)}
+    .logo img{
+      max-height:44px;
+      width:auto;
+      display:block;
+    }
+    .nav-pill{
+      display:inline-flex;align-items:center;gap:9px;
+      padding:9px 16px;
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:100px;
+      font-size:12px;font-weight:500;
+      color:var(--muted);
+      text-decoration:none;
+      transition:background .25s ease, color .25s ease, border-color .25s ease;
+      letter-spacing:-0.01em;
+    }
+    .nav-pill:hover{background:var(--cream-2);color:var(--text);border-color:var(--border-strong)}
+    .nav-pill.reveal{transition-delay:.5s}
+    .nav-pill .dot{
+      width:6px;height:6px;background:var(--wood-dark);border-radius:50%;
+      animation:pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
+
+    /* Hero */
+    .hero{padding:72px 0 40px;text-align:center}
+    h1{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(44px,8.5vw,72px);
+      font-weight:600;
+      letter-spacing:-0.04em;
+      line-height:0.96;
+      margin-bottom:26px;
+      color:var(--text);
+    }
+    h1 .hl{
+      background:linear-gradient(135deg,#8B6914 0%,#A0784C 50%,#C4A35A 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      font-style:italic;
+      font-weight:500;
+    }
+    .sub{
+      font-size:17px;
+      line-height:1.55;
+      color:var(--muted);
+      max-width:480px;
+      margin:0 auto 64px;
+      font-weight:300;
+    }
+    .hero-cta{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:16px 36px;
+      background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);
+      border:1px solid rgba(26,26,26,0.1);
+      border-radius:100px;
+      color:#fff;
+      font-size:15px;font-weight:600;font-family:'Space Grotesk',sans-serif;
+      text-decoration:none;
+      letter-spacing:-0.02em;
+      transition:transform .35s cubic-bezier(.2,.8,.2,1),background .3s ease,box-shadow .3s ease;
+      will-change:transform;
+      margin-bottom:56px;
+    }
+    .hero-cta svg{width:18px;height:18px;transition:transform .3s ease}
+    .hero-cta:hover{
+      transform:translateY(-2px);
+      background:linear-gradient(135deg,#8B6914 0%,#A0784C 100%);
+      box-shadow:0 8px 24px rgba(139,105,20,0.18);
+    }
+    .hero-cta:hover svg{transform:translateY(3px)}
+    .hero-cta:active{transform:translateY(0)}
+    .hero-cta:focus-visible{outline:2px solid var(--wood-dark);outline-offset:3px}
+
+    /* Wireframe cube */
+    .cube-stage{
+      width:280px;height:280px;
+      margin:0 auto 140px;
+      perspective:1000px;
+      position:relative;
+    }
+    .cube{
+      width:200px;height:200px;
+      position:absolute;top:50%;left:50%;
+      transform-style:preserve-3d;
+      transform:translate(-50%,-50%) rotateX(-22deg) rotateY(0deg);
+      animation:cube-rot 24s linear infinite;
+      will-change:transform;
+    }
+    @keyframes cube-rot{
+      0%{transform:translate(-50%,-50%) rotateX(-22deg) rotateY(0deg)}
+      100%{transform:translate(-50%,-50%) rotateX(-22deg) rotateY(360deg)}
+    }
+    .edge{
+      position:absolute;
+      top:50%;left:50%;
+      width:200px;height:2px;
+      margin-left:-100px;margin-top:-1px;
+      background:#C4A35A;
+      border-radius:2px;
+      transform-style:preserve-3d;
+    }
+    /* X-axis edges (horizontal) */
+    .e1{transform:translate3d(0,-100px,-100px)}
+    .e2{transform:translate3d(0,-100px,100px)}
+    .e3{transform:translate3d(0,100px,-100px)}
+    .e4{transform:translate3d(0,100px,100px)}
+    /* Y-axis edges (vertical) */
+    .e5{transform:translate3d(-100px,0,-100px) rotateZ(90deg)}
+    .e6{transform:translate3d(-100px,0,100px) rotateZ(90deg)}
+    .e7{transform:translate3d(100px,0,-100px) rotateZ(90deg)}
+    .e8{transform:translate3d(100px,0,100px) rotateZ(90deg)}
+    /* Z-axis edges (depth) */
+    .e9{transform:translate3d(-100px,-100px,0) rotateY(90deg)}
+    .e10{transform:translate3d(-100px,100px,0) rotateY(90deg)}
+    .e11{transform:translate3d(100px,-100px,0) rotateY(90deg)}
+    .e12{transform:translate3d(100px,100px,0) rotateY(90deg)}
+
+    .vertex{
+      position:absolute;
+      top:50%;left:50%;
+      width:8px;height:8px;
+      margin-left:-4px;margin-top:-4px;
+      border-radius:50%;
+      background:#A0784C;
+    }
+    .v1{transform:translate3d(-100px,-100px,-100px)}
+    .v2{transform:translate3d(100px,-100px,-100px)}
+    .v3{transform:translate3d(-100px,100px,-100px)}
+    .v4{transform:translate3d(100px,100px,-100px)}
+    .v5{transform:translate3d(-100px,-100px,100px)}
+    .v6{transform:translate3d(100px,-100px,100px)}
+    .v7{transform:translate3d(-100px,100px,100px)}
+    .v8{transform:translate3d(100px,100px,100px)}
+
+    /* Features */
+    .feats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-bottom:120px;
+    }
+    .feat{
+      position:relative;
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:24px 20px;
+      text-align:left;
+      transition:transform .35s cubic-bezier(.2,.8,.2,1), background .35s cubic-bezier(.2,.8,.2,1), border-color .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .feat:hover{
+      transform:translateY(-4px);
+      background:var(--cream-2);
+      border-color:var(--border-strong);
+      box-shadow:0 8px 24px rgba(139,105,20,0.08);
+    }
+    .feat-icon{
+      width:40px;height:40px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,rgba(196,163,90,0.32),rgba(160,120,76,0.18));
+      border:1px solid rgba(139,105,20,0.28);
+      border-radius:12px;
+      margin-bottom:16px;
+      color:var(--wood-dark);
+    }
+    .feat-icon svg{width:20px;height:20px}
+    .feat h3{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:15px;font-weight:600;
+      margin-bottom:6px;
+      letter-spacing:-0.02em;
+      color:var(--text);
+    }
+    .feat p{font-size:13px;color:var(--muted);line-height:1.55;font-weight:400}
+
+    /* Testimonials */
+    .testimonials{margin-bottom:120px}
+    .testimonials-head{text-align:center;margin-bottom:28px}
+    .testimonials-head h3{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(26px,4.6vw,34px);
+      font-weight:600;
+      letter-spacing:-0.03em;
+      color:var(--text);
+      margin-bottom:8px;
+    }
+    .testimonials-head p{font-size:14px;color:var(--muted);font-weight:300}
+    .testi-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+    .testi-card{
+      position:relative;
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      transition:transform .35s cubic-bezier(.2,.8,.2,1), background .35s cubic-bezier(.2,.8,.2,1), border-color .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .testi-card:hover{
+      transform:translateY(-4px);
+      background:var(--cream-2);
+      border-color:var(--border-strong);
+      box-shadow:0 8px 24px rgba(139,105,20,0.08);
+    }
+    .testi-photo{
+      width:100%;
+      aspect-ratio:4/5;
+      object-fit:cover;
+      border-radius:14px;
+      border:1px solid var(--border);
+      box-shadow:0 6px 18px rgba(139,105,20,0.1);
+      display:block;
+      background:var(--bg-2);
+    }
+    .testi-body{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding:0 4px 6px;
+    }
+    .testi-quote{
+      font-size:14px;
+      line-height:1.6;
+      color:var(--text);
+      font-weight:400;
+      letter-spacing:-0.01em;
+    }
+    .testi-quote::before{
+      content:'“';
+      font-family:'Space Grotesk',sans-serif;
+      color:var(--wood-dark);
+      font-size:22px;
+      font-weight:600;
+      margin-right:2px;
+      line-height:0;
+    }
+    .testi-author{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:13px;
+      font-weight:600;
+      color:var(--wood-dark);
+      letter-spacing:-0.01em;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .testi-author::before{
+      content:'';
+      width:18px;height:1px;
+      background:var(--border-strong);
+      display:inline-block;
+    }
+    .testi-role{
+      font-family:'Sora',sans-serif;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:300;
+      margin-top:-4px;
+      padding-left:26px;
+    }
+
+    /* Pricing */
+    .pricing{margin-bottom:120px}
+    .pricing-head{text-align:center;margin-bottom:28px}
+    .pricing-head h3{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(26px,4.6vw,34px);
+      font-weight:600;
+      letter-spacing:-0.03em;
+      color:var(--text);
+      margin-bottom:8px;
+    }
+    .pricing-head p{font-size:14px;color:var(--muted);font-weight:300}
+    .shipping-note{
+      font-size:12px;color:var(--wood-dark);font-weight:500;
+      margin-top:4px;letter-spacing:0.02em;
+      display:inline-flex;align-items:center;gap:6px;
+    }
+    .shipping-note::before{
+      content:'';display:inline-block;width:6px;height:6px;
+      background:var(--wood-dark);border-radius:50%;
+      animation:pulse 2s ease-in-out infinite;
+    }
+    .price-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+    .price-card{
+      position:relative;
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:26px 22px;
+      transition:transform .35s cubic-bezier(.2,.8,.2,1), background .35s cubic-bezier(.2,.8,.2,1), border-color .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .price-card:hover{
+      transform:translateY(-4px);
+      background:var(--cream-2);
+      border-color:var(--border-strong);
+      box-shadow:0 8px 24px rgba(139,105,20,0.08);
+    }
+    .price-card.featured{
+      background:linear-gradient(160deg, rgba(196,163,90,0.14), rgba(212,184,150,0.06));
+      border-color:rgba(139,105,20,0.32);
+    }
+    .price-icon{
+      width:38px;height:38px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(139,105,20,0.1);
+      border:1px solid rgba(139,105,20,0.22);
+      border-radius:11px;
+      margin-bottom:16px;
+      color:var(--wood-dark);
+    }
+    .price-icon svg{width:18px;height:18px}
+    .price-amount{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:28px;
+      font-weight:600;
+      letter-spacing:-0.025em;
+      color:var(--text);
+      line-height:1;
+      margin-bottom:8px;
+      font-feature-settings:'tnum';
+    }
+    .price-amount .cur{
+      font-size:18px;
+      color:var(--muted);
+      font-weight:500;
+      margin-right:2px;
+    }
+    .price-name{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:14px;
+      font-weight:600;
+      color:var(--text);
+      margin-bottom:6px;
+      letter-spacing:-0.01em;
+    }
+    .price-desc{
+      font-size:12.5px;
+      color:var(--muted);
+      line-height:1.5;
+      font-weight:400;
+    }
+    .price-tag{
+      display:inline-flex;align-items:center;gap:6px;
+      margin-top:12px;
+      padding:5px 10px;
+      background:rgba(139,105,20,0.12);
+      border:1px solid rgba(139,105,20,0.28);
+      border-radius:100px;
+      font-size:10.5px;
+      font-weight:600;
+      color:var(--wood-dark);
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+    }
+    .price-tag svg{width:11px;height:11px}
+
+    .price-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      margin-top:16px;
+      padding:12px 22px;
+      background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);
+      border:1px solid rgba(26,26,26,0.1);
+      border-radius:12px;
+      color:#fff;
+      font-size:13px;font-weight:600;font-family:inherit;
+      text-decoration:none;
+      letter-spacing:-0.01em;
+      transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s ease,box-shadow .3s ease;
+      will-change:transform;
+    }
+    .price-btn svg{width:14px;height:14px;transition:transform .25s ease}
+    .price-btn:hover{
+      transform:translateY(-2px);
+      background:linear-gradient(135deg,#8B6914 0%,#A0784C 100%);
+      box-shadow:0 6px 20px rgba(139,105,20,0.2);
+    }
+    .price-btn:hover svg{transform:translateX(3px)}
+    .price-btn:active{transform:translateY(0)}
+    .price-btn:focus-visible{outline:2px solid var(--wood-dark);outline-offset:2px;border-radius:12px}
+
+    /* Form section */
+    .form-section{margin-bottom:140px}
+    .form-wrap{
+      position:relative;
+      padding:1.5px;
+      border-radius:28px;
+      background:linear-gradient(135deg,
+        rgba(139,105,20,0.5) 0%,
+        rgba(196,163,90,0.35) 50%,
+        rgba(160,120,76,0.5) 100%);
+    }
+    .form-box{
+      position:relative;
+      background:#faf8f5;
+      border-radius:26.5px;
+      padding:56px 44px 48px;
+      text-align:center;
+    }
+    .form-tag{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 14px;
+      background:rgba(139,105,20,0.1);
+      border:1px solid rgba(139,105,20,0.32);
+      border-radius:100px;
+      font-size:11px;font-weight:600;
+      color:var(--wood-dark);
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+      margin-bottom:24px;
+      animation:breathe 3s ease-in-out infinite;
+      transform-origin:center;
+    }
+    @keyframes breathe{
+      0%,100%{transform:scale(1);opacity:.9}
+      50%{transform:scale(1.01);opacity:1}
+    }
+    .form-tag .live-dot{
+      width:6px;height:6px;
+      background:var(--wood-dark);
+      border-radius:50%;
+      animation:pulse 2s ease-in-out infinite;
+    }
+    .form-box h2{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(32px,5.5vw,42px);
+      font-weight:600;
+      letter-spacing:-0.035em;
+      line-height:1.05;
+      margin-bottom:14px;
+      color:var(--text);
+    }
+    .form-box>p{
+      font-size:15px;
+      color:var(--muted);
+      margin-bottom:32px;
+      font-weight:300;
+    }
+    .tabs{
+      display:inline-flex;
+      gap:4px;
+      background:rgba(139,105,20,0.06);
+      border:1px solid var(--border);
+      border-radius:100px;
+      padding:5px;
+      margin-bottom:24px;
+    }
+    .tab{
+      padding:10px 18px;
+      border:none;
+      border-radius:100px;
+      font-size:13px;font-weight:500;
+      font-family:inherit;cursor:pointer;
+      background:transparent;
+      color:var(--muted);
+      transition:background .25s ease, color .25s ease;
+      display:inline-flex;align-items:center;gap:7px;
+      letter-spacing:-0.01em;
+    }
+    .tab svg{width:14px;height:14px}
+    .tab:hover{color:var(--text)}
+    .tab.active{
+      background:var(--text);
+      color:var(--bg);
+      font-weight:600;
+    }
+
+    .field{
+      position:relative;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:6px;
+      display:flex;
+      gap:6px;
+      align-items:stretch;
+      transition:border-color .3s ease, box-shadow .3s ease;
+    }
+    .field:focus-within{
+      border-color:rgba(139,105,20,0.55);
+      box-shadow:0 0 0 4px rgba(139,105,20,0.12);
+    }
+    .input-shell{
+      position:relative;
+      flex:1;
+      min-width:0;
+    }
+    .inp{
+      width:100%;
+      padding:22px 20px 10px;
+      background:transparent;
+      border:none;
+      color:var(--text);
+      font-size:16px;
+      font-family:inherit;
+      outline:none;
+      letter-spacing:-0.01em;
+      text-align:left;
+    }
+    .inp:-webkit-autofill,
+    .inp:-webkit-autofill:hover,
+    .inp:-webkit-autofill:focus{
+      -webkit-text-fill-color:var(--text);
+      -webkit-box-shadow:0 0 0 1000px transparent inset;
+      transition:background-color 9999s ease;
+      caret-color:var(--text);
+    }
+    .float-label{
+      position:absolute;
+      left:20px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--dim);
+      font-size:14px;
+      pointer-events:none;
+      transition:top .2s ease, font-size .2s ease, color .2s ease, transform .2s ease;
+      font-weight:400;
+    }
+    .inp:focus + .float-label,
+    .inp:not(:placeholder-shown) + .float-label{
+      top:11px;
+      transform:translateY(0);
+      font-size:10.5px;
+      color:var(--wood-dark);
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+    .btn{
+      padding:0 28px;
+      background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);
+      border:none;
+      border-radius:14px;
+      color:#fff;
+      font-size:14px;
+      font-weight:600;
+      font-family:inherit;
+      cursor:pointer;
+      transition:transform .25s ease, background .25s ease;
+      white-space:nowrap;
+      letter-spacing:-0.01em;
+      display:inline-flex;align-items:center;gap:8px;
+    }
+    .btn svg{width:14px;height:14px;transition:transform .25s ease}
+    .btn:hover{
+      transform:scale(1.02);
+      background:linear-gradient(135deg,#8B6914 0%,#A0784C 100%);
+    }
+    .btn:hover svg{transform:translateX(3px)}
+    .btn:active{transform:scale(0.98)}
+    .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+
+    .msg{
+      display:none;
+      padding:14px 20px;
+      border-radius:14px;
+      font-size:13.5px;font-weight:500;
+      text-align:center;
+      margin-top:18px;
+      align-items:center;justify-content:center;gap:8px;
+    }
+    .msg svg{width:16px;height:16px;flex-shrink:0}
+    .msg.ok{
+      display:inline-flex;
+      background:rgba(139,105,20,0.1);
+      border:1px solid rgba(139,105,20,0.3);
+      color:var(--wood-dark);
+    }
+    .msg.err{
+      display:inline-flex;
+      background:rgba(180,60,40,0.08);
+      border:1px solid rgba(180,60,40,0.24);
+      color:#9c3d28;
+    }
+
+    .count{
+      margin-top:24px;
+      font-size:13px;
+      color:var(--muted);
+      display:inline-flex;align-items:center;gap:9px;
+      font-weight:300;
+    }
+    .count-dot{
+      width:6px;height:6px;
+      background:var(--wood-dark);
+      border-radius:50%;
+      animation:pulse 2s ease-in-out infinite;
+    }
+    .count strong{color:var(--text);font-weight:600;font-feature-settings:'tnum'}
+    .urgency-dot{
+      width:6px;height:6px;
+      background:#c44e2e;
+      border-radius:50%;
+      animation:pulse 1.5s ease-in-out infinite;
+    }
+    .scarcity-line{
+      font-size:11px;
+      color:var(--dim);
+      margin-top:4px;
+      font-weight:300;
+    }
+
+    /* Joined state */
+    .joined{
+      display:none;
+      flex-direction:column;align-items:center;gap:14px;
+      padding:24px 0;
+    }
+    .joined.show{display:flex}
+    .joined-check{
+      width:64px;height:64px;
+      border-radius:50%;
+      background:linear-gradient(135deg,rgba(196,163,90,0.25),rgba(212,184,150,0.15));
+      border:1px solid rgba(139,105,20,0.45);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--wood-dark);
+      animation:check-pop .55s cubic-bezier(.2,.7,.2,1);
+    }
+    @keyframes check-pop{
+      from{opacity:0;transform:scale(.6)}
+      to{opacity:1;transform:scale(1)}
+    }
+    .joined-check svg{width:30px;height:30px}
+    .joined h3{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:22px;font-weight:600;
+      letter-spacing:-0.02em;
+      color:var(--text);
+    }
+    .joined p{font-size:14px;color:var(--muted);font-weight:300;max-width:340px;line-height:1.55}
+    .joined .reset{
+      margin-top:6px;
+      background:transparent;border:none;
+      color:var(--dim);font-size:12px;cursor:pointer;
+      font-family:inherit;
+      text-decoration:underline;
+      text-decoration-color:rgba(139,105,20,0.25);
+      text-underline-offset:3px;
+      transition:color .2s ease;
+    }
+    .joined .reset:hover{color:var(--wood-dark)}
+
+    /* FAQ */
+    .faq{margin-bottom:120px}
+    .faq-head{text-align:center;margin-bottom:36px}
+    .faq-head h3{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(28px,5vw,38px);
+      font-weight:600;
+      letter-spacing:-0.03em;
+      margin-bottom:8px;
+      color:var(--text);
+    }
+    .faq-head p{font-size:14px;color:var(--muted);font-weight:300}
+    .faq-list{display:flex;flex-direction:column;gap:10px}
+    .faq-i{
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      transition:border-color .35s cubic-bezier(.2,.8,.2,1), background .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .faq-i:hover{border-color:var(--border-strong);background:var(--cream-2)}
+    .faq-i[open]{border-color:rgba(139,105,20,0.35);background:rgba(196,163,90,0.08)}
+    .faq-i[open] .faq-a{
+      animation:faq-open .35s cubic-bezier(.2,.8,.2,1);
+    }
+    @keyframes faq-open{
+      from{opacity:0;max-height:0;transform:translateY(-4px)}
+      to{opacity:1;max-height:400px;transform:translateY(0)}
+    }
+    .faq-i summary{
+      padding:20px 22px;
+      cursor:pointer;
+      list-style:none;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;
+      font-size:15px;font-weight:500;
+      letter-spacing:-0.01em;
+      font-family:'Space Grotesk',sans-serif;
+      color:var(--text);
+    }
+    .faq-i summary::-webkit-details-marker{display:none}
+    .chev{
+      width:18px;height:18px;
+      flex-shrink:0;
+      color:var(--muted);
+      transition:transform .35s cubic-bezier(.2,.8,.2,1), color .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .faq-i[open] .chev{transform:rotate(180deg);color:var(--wood-dark)}
+    .faq-a{
+      padding:0 22px 22px;
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.65;
+      font-weight:400;
+    }
+
+    /* Footer */
+    footer{
+      text-align:center;
+      padding:48px 0 36px;
+      border-top:1px solid var(--border);
+    }
+    .soc{
+      display:inline-flex;
+      align-items:center;gap:10px;
+      padding:11px 20px;
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:100px;
+      color:var(--text);
+      text-decoration:none;
+      font-size:13px;font-weight:500;
+      transition:background .25s ease, border-color .25s ease, transform .25s ease;
+      letter-spacing:-0.01em;
+    }
+    .soc:hover{
+      background:var(--cream-2);
+      border-color:var(--ring-strong);
+      transform:translateY(-1px);
+    }
+    .soc svg{width:15px;height:15px;color:var(--wood-dark)}
+    footer p{margin-top:18px;font-size:11px;color:var(--dim);letter-spacing:0.04em;font-weight:300}
+
+    /* Mobile */
+    @media(max-width:640px){
+      .hero{padding:56px 0 40px}
+      .hero-cta{padding:14px 28px;font-size:14px;margin-bottom:48px;width:100%;justify-content:center}
+.feats{grid-template-columns:1fr;gap:10px;margin-bottom:88px}
+      .feat{padding:22px}
+      .testi-grid{grid-template-columns:1fr;gap:12px}
+      .testimonials{margin-bottom:88px}
+      .testi-card{padding:16px}
+      .testi-photo{aspect-ratio:4/5}
+      .price-grid{grid-template-columns:1fr;gap:12px}
+      .price-btn{width:100%;justify-content:center;padding:14px 20px}
+      .pricing{margin-bottom:88px}
+      .form-box{padding:40px 22px 36px}
+      .field{flex-direction:column;border-radius:20px;gap:6px;padding:6px}
+      .input-shell{width:100%}
+      .inp{padding:22px 18px 10px;text-align:center}
+      .float-label{left:50%;transform:translate(-50%,-50%)}
+      .inp:focus + .float-label,
+      .inp:not(:placeholder-shown) + .float-label{
+        top:10px;
+        transform:translateX(-50%);
+      }
+      .btn{padding:18px;width:100%;justify-content:center}
+      .tabs{display:flex;width:100%}
+      .tab{flex:1;justify-content:center}
+      .cube-stage{width:200px;height:200px;margin-bottom:100px}
+      .cube{width:160px;height:160px}
+      .edge{width:160px;height:2px;margin-left:-80px;margin-top:-1px}
+      .e1{transform:translate3d(0,-80px,-80px)}
+      .e2{transform:translate3d(0,-80px,80px)}
+      .e3{transform:translate3d(0,80px,-80px)}
+      .e4{transform:translate3d(0,80px,80px)}
+      .e5{transform:translate3d(-80px,0,-80px) rotateZ(90deg)}
+      .e6{transform:translate3d(-80px,0,80px) rotateZ(90deg)}
+      .e7{transform:translate3d(80px,0,-80px) rotateZ(90deg)}
+      .e8{transform:translate3d(80px,0,80px) rotateZ(90deg)}
+      .e9{transform:translate3d(-80px,-80px,0) rotateY(90deg)}
+      .e10{transform:translate3d(-80px,80px,0) rotateY(90deg)}
+      .e11{transform:translate3d(80px,-80px,0) rotateY(90deg)}
+      .e12{transform:translate3d(80px,80px,0) rotateY(90deg)}
+      .vertex{width:7px;height:7px;margin-left:-3.5px;margin-top:-3.5px}
+      .v1{transform:translate3d(-80px,-80px,-80px)}
+      .v2{transform:translate3d(80px,-80px,-80px)}
+      .v3{transform:translate3d(-80px,80px,-80px)}
+      .v4{transform:translate3d(80px,80px,-80px)}
+      .v5{transform:translate3d(-80px,-80px,80px)}
+      .v6{transform:translate3d(80px,-80px,80px)}
+      .v7{transform:translate3d(-80px,80px,80px)}
+      .v8{transform:translate3d(80px,80px,80px)}
+      .form-section{margin-bottom:100px}
+      .faq{margin-bottom:88px}
+      .faq-i summary{padding:18px 18px;font-size:14.5px}
+      .faq-a{padding:0 18px 20px}
+      .logo img{max-height:38px}
+    }
+    @media(max-width:380px){
+      header{flex-direction:column;gap:14px;align-items:flex-start}
+      .hero{padding-top:56px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+        scroll-behavior:auto !important;
+      }
+      .cube{animation:none;transform:translate(-50%,-50%) rotateX(-22deg) rotateY(-30deg)}
+      .nav-pill .dot,.form-tag .live-dot,.count-dot{animation:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" role="progressbar" aria-label="Progreso de lectura" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="wrap">
+    <header>
+      <a href="https://www.instagram.com/rona.printing" target="_blank" rel="noopener" class="logo reveal d1" aria-label="Rona Printing">
+        <img src="logo.png" alt="Rona Printing">
+      </a>
+      <a href="#waitlist" class="nav-pill reveal d1"><span class="dot"></span>Lista de espera</a>
+    </header>
+
+    <section class="hero">
+      <h1 class="reveal d2">El cubo que<br><span class="hl">despierta mentes</span></h1>
+      <p class="sub reveal d3">Didáctico, impreso en 3D y pensado para aprender jugando. Sumate y sé de los primeros en tenerlo.</p>
+
+      <a href="#precios" class="hero-cta">
+        <span>Reservá o comprá</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      </a>
+
+      <div class="cube-stage reveal d4">
+        <div class="cube">
+          <div class="edge e1"></div>
+          <div class="edge e2"></div>
+          <div class="edge e3"></div>
+          <div class="edge e4"></div>
+          <div class="edge e5"></div>
+          <div class="edge e6"></div>
+          <div class="edge e7"></div>
+          <div class="edge e8"></div>
+          <div class="edge e9"></div>
+          <div class="edge e10"></div>
+          <div class="edge e11"></div>
+          <div class="edge e12"></div>
+          <div class="vertex v1"></div>
+          <div class="vertex v2"></div>
+          <div class="vertex v3"></div>
+          <div class="vertex v4"></div>
+          <div class="vertex v5"></div>
+          <div class="vertex v6"></div>
+          <div class="vertex v7"></div>
+          <div class="vertex v8"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="feats">
+      <div class="feat reveal d4">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h3>Impresión 3D</h3>
+        <p>Piezas precisas, con materiales que duran.</p>
+      </div>
+      <div class="feat reveal d5">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18h6"/>
+            <path d="M10 22h4"/>
+            <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2v.3c0 .6.4 1 1 1h4c.6 0 1-.4 1-1V17c0-.7.4-1.4 1-2A7 7 0 0 0 12 2z"/>
+          </svg>
+        </div>
+        <h3>Didáctico</h3>
+        <p>Hecho para despertar curiosidad y ganas de explorar.</p>
+      </div>
+      <div class="feat reveal d6">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
+            <path d="M13 13l6 6"/>
+          </svg>
+        </div>
+        <h3>Diseño propio</h3>
+        <p>Creado y fabricado a mano por Rona Printing.</p>
+      </div>
+    </div>
+
+    <section class="testimonials reveal d5" id="testimonios" aria-label="Testimonios">
+      <div class="testimonials-head">
+        <h3>Lo que dicen</h3>
+        <p>Quienes ya lo tienen, lo recomiendan.</p>
+      </div>
+      <div class="testi-grid">
+        <figure class="testi-card">
+          <img class="testi-photo" src="testimonio1.jpg" alt="Escenario armado con el cubo didáctico de Rona Printing en el jardín de Mariela" loading="lazy" decoding="async">
+          <figcaption class="testi-body">
+            <p class="testi-quote">Gracias RoNa, llegó el premio muy lindo. Hoy mis pekes del jardín lo disfrutaron jugando, armamos un escenario sobre el cuento de Pipino.</p>
+            <span class="testi-author">Mariela</span>
+            <span class="testi-role">Maestra jardinera</span>
+          </figcaption>
+        </figure>
+        <figure class="testi-card">
+          <img class="testi-photo" src="testimonio2.jpg" alt="Chicos jugando con el cubo didáctico de Rona Printing decorado con cintas de colores" loading="lazy" decoding="async">
+          <figcaption class="testi-body">
+            <p class="testi-quote">¡Realmente un éxito! Lo disfrutan al 100, los chicos no paran de jugar. Se volvió el favorito de la sala.</p>
+            <span class="testi-role">Docente de nivel inicial</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="pricing reveal d5" id="precios">
+      <div class="pricing-head">
+        <h3>Precios</h3>
+        <p>Elegí tu forma de pago y reservá.</p>
+        <p class="shipping-note">Despachos a partir de la semana que viene</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="price-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="12" rx="2"/>
+              <circle cx="12" cy="12" r="2"/>
+              <path d="M6 12h.01M18 12h.01"/>
+            </svg>
+          </div>
+          <div class="price-amount"><span class="cur">$</span>45.000</div>
+          <div class="price-name">Retiro o transferencia</div>
+          <p class="price-desc">Pagás por transferencia y lo retirás en mano. Sin costos extra.</p>
+          <a href="https://mpago.la/1bQ4gZa" target="_blank" rel="noopener" class="price-btn">
+            <span>Reservar ahora</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 3h15v13H1z"/>
+              <path d="M16 8h4l3 3v5h-7V8z"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/>
+              <circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+          </div>
+          <div class="price-amount"><span class="cur">$</span>70.000</div>
+          <div class="price-name">Envío a todo el país</div>
+          <p class="price-desc">Por Mercado Libre, directo a tu puerta.</p>
+          <span class="price-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            6 cuotas sin interés
+          </span>
+          <a href="https://articulo.mercadolibre.com.ar/MLA-1745303933" target="_blank" rel="noopener" class="price-btn">
+            <span>Comprar en Mercado Libre</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section reveal d6" id="waitlist">
+      <div class="form-wrap">
+        <div class="form-box">
+          <div class="form-tag"><span class="urgency-dot"></span>Quedan pocos lugares</div>
+          <h2>Reservá el tuyo</h2>
+          <p>Sumate antes que se llenen los primeros lotes.</p>
+
+          <div class="tabs" role="tablist" id="tabsEl">
+            <button class="tab active" data-type="email" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </button>
+            <button class="tab" data-type="instagram" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              Instagram
+            </button>
+          </div>
+
+          <form id="wlForm" novalidate>
+            <div class="field" id="fieldEl">
+              <div class="input-shell">
+                <input type="email" class="inp" id="valueInp" required autocomplete="email" placeholder=" ">
+                <label class="float-label" for="valueInp" id="floatLabel">Tu correo</label>
+              </div>
+              <button type="submit" class="btn" id="subBtn">
+                <span id="btnLabel">Quiero el mío</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </form>
+
+          <div class="msg" id="msgBox"></div>
+
+          <div class="joined" id="joinedBox">
+            <div class="joined-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Ya estás en la lista</h3>
+            <p>Te escribimos apenas estén listos los primeros cubos. Gracias por sumarte.</p>
+            <button class="reset" id="resetBtn" type="button">Anotar otro</button>
+          </div>
+
+          <div class="count" id="countWrap">
+            <span class="count-dot"></span>
+            Ya somos <strong id="counter">—</strong> en la lista
+            <div class="scarcity-line">Últimos lugares del primer lote</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq reveal d7">
+      <div class="faq-head">
+        <h3>Preguntas frecuentes</h3>
+        <p>Todo lo que necesitás saber.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-i">
+          <summary>
+            ¿Qué es el cubo didáctico?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-a">Un cubo impreso en 3D para aprender jugando. Tangible, manipulable y pensado para chicos, jóvenes y curiosos.</div>
+        </details>
+        <details class="faq-i">
+          <summary>
+            ¿Cuándo va a estar disponible?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-a">Los despachos arrancan la semana que viene. Anotate a la lista y te avisamos apenas salgan los primeros lotes.</div>
+        </details>
+        <details class="faq-i">
+          <summary>
+            ¿Anotarme me compromete a comprar?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-a">Para nada. Es sin compromiso. Solo te avisamos cuando esté disponible y vos decidís si lo querés.</div>
+        </details>
+        <details class="faq-i">
+          <summary>
+            ¿Hacen envíos?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-a">Sí. Enviamos a todo el país por Mercado Libre con la opción de 6 cuotas sin interés. También podés retirarlo o pagar por transferencia. Los despachos comienzan la semana que viene.</div>
+        </details>
+        <details class="faq-i">
+          <summary>
+            ¿Tiene garantía?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-a">Sí. Cubrimos defectos de fabricación y daños por uso normal. No cubre mal uso, golpes excesivos ni exposición a calor extremo.</div>
+        </details>
+      </div>
+    </section>
+
+    <footer class="reveal d7">
+      <a href="https://www.instagram.com/rona.printing" target="_blank" rel="noopener" class="soc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        @rona.printing
+      </a>
+      <p>© 2026 Rona Printing — Diseñado e impreso en Argentina</p>
+    </footer>
+  </div>
+
+  <script>
+    // Scroll progress (rAF loop, no scroll listener)
+    (function(){
+      const bar = document.getElementById('scrollProgress');
+      if(!bar) return;
+      let lastPct = -1, lastVisible = -1;
+      function tick(){
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? scrollTop / docHeight : 0;
+        const visible = scrollTop > 100 ? 1 : 0;
+        if(pct !== lastPct){
+          bar.style.transform = 'scaleX(' + pct + ')';
+          bar.setAttribute('aria-valuenow', Math.round(pct * 100));
+          lastPct = pct;
+        }
+        if(visible !== lastVisible){
+          bar.style.opacity = visible;
+          lastVisible = visible;
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
+
+    // IntersectionObserver reveal
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window)){
+        els.forEach(el => el.classList.add('revealed'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('revealed');
+            io.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+      els.forEach(el => io.observe(el));
+    })();
+
+    const SUBMITTED_KEY = 'rona-waitlist-submitted-v1';
+
+    let currentType = 'email';
+    const valueInp = document.getElementById('valueInp');
+    const subBtn = document.getElementById('subBtn');
+    const btnLabel = document.getElementById('btnLabel');
+    const msgBox = document.getElementById('msgBox');
+    const counter = document.getElementById('counter');
+    const wlForm = document.getElementById('wlForm');
+    const tabsEl = document.getElementById('tabsEl');
+    const floatLabel = document.getElementById('floatLabel');
+    const joinedBox = document.getElementById('joinedBox');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function animateCount(target){
+      if(target == null || isNaN(target)){counter.textContent = '—';return}
+      const duration = 1200;
+      const start = performance.now();
+      function tick(now){
+        const t = Math.min(1,(now-start)/duration);
+        const eased = 1 - Math.pow(1-t,3);
+        counter.textContent = Math.round(target*eased);
+        if(t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    fetch('/api/signup')
+      .then(r => r.json())
+      .then(d => animateCount(25 + (d.count || 0)))
+      .catch(() => { animateCount(25); });
+
+    function showJoined(){
+      wlForm.style.display = 'none';
+      tabsEl.style.display = 'none';
+      msgBox.className = 'msg';
+      msgBox.textContent = '';
+      joinedBox.classList.add('show');
+    }
+    function showForm(){
+      wlForm.style.display = '';
+      tabsEl.style.display = '';
+      joinedBox.classList.remove('show');
+    }
+    if(localStorage.getItem(SUBMITTED_KEY)) showJoined();
+
+    resetBtn.addEventListener('click', () => {
+      localStorage.removeItem(SUBMITTED_KEY);
+      showForm();
+      valueInp.value = '';
+      valueInp.focus();
+    });
+
+    tabsEl.querySelectorAll('.tab').forEach(t => {
+      t.addEventListener('click', () => switchTab(t.dataset.type));
+    });
+
+    function switchTab(type){
+      currentType = type;
+      tabsEl.querySelectorAll('.tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.type === type);
+      });
+      if(type === 'email'){
+        valueInp.type = 'email';
+        valueInp.autocomplete = 'email';
+        floatLabel.textContent = 'Tu correo electrónico';
+      } else {
+        valueInp.type = 'text';
+        valueInp.autocomplete = 'username';
+        floatLabel.textContent = 'Tu usuario de Instagram';
+      }
+      valueInp.value = '';
+      msgBox.className = 'msg';
+      msgBox.textContent = '';
+      valueInp.focus();
+    }
+
+    wlForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const value = valueInp.value.trim();
+      if(!value) return;
+
+      subBtn.disabled = true;
+      btnLabel.textContent = 'Enviando…';
+      msgBox.className = 'msg';
+      msgBox.textContent = '';
+
+      try {
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: currentType, value })
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if(res.ok){
+          if(data.count != null) animateCount(25 + data.count);
+          localStorage.setItem(SUBMITTED_KEY, JSON.stringify({type: currentType, date: Date.now()}));
+          showJoined();
+        } else {
+          msgBox.className = 'msg err';
+          msgBox.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>${data.error || 'Algo salió mal, probá de nuevo'}</span>`;
+          if(data.count != null) animateCount(25 + data.count);
+          if(res.status === 409){
+            localStorage.setItem(SUBMITTED_KEY, JSON.stringify({type: currentType, date: Date.now()}));
+            setTimeout(showJoined, 1200);
+          }
+        }
+      } catch (err) {
+        msgBox.className = 'msg err';
+        msgBox.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Error de conexión, intentá de nuevo</span>`;
+      }
+      subBtn.disabled = false;
+      btnLabel.textContent = 'Quiero el mío';
+    });
+  </script>
+</body>
+</html>
